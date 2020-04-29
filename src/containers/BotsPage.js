@@ -34,11 +34,27 @@ class BotsPage extends React.Component {
   }
 
   handleIndexBotClick(bot) {
-    console.log('index bot click', bot)
+    // Don't allow adding duplicate bots to the army
+    if (this.state.armyBots.find(armyBot => armyBot.id === bot.id )) {
+      alert('That bot is already in your army!')
+      return
+    }
+
+    // Add the bot to the army
+    this.setState(prevState => {
+      return {
+        armyBots: [...prevState.armyBots, bot]
+      }
+    })
   }
 
   handleArmyBotClick(bot) {
-    console.log('army bot click', bot)
+    // Remove the bot from the army
+    this.setState(prevState => {
+      return {
+        armyBots: prevState.armyBots.filter(armyBot => armyBot.id !== bot.id)
+      }
+    })
   }
 
   render() {
