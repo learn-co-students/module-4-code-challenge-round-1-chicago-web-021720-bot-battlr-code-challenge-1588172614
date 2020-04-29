@@ -8,6 +8,7 @@ class BotsPage extends React.Component {
     this.state = {
       bots: [],
       armyBots: [],
+      //to refactor prob move sort state into BotCollection
       isSortedByType: false,
       sortByType: []
     }
@@ -77,7 +78,7 @@ class BotsPage extends React.Component {
         <BotCollection bots={this.state.bots} 
         updateIsArmy={this.updateIsArmy} 
         updateIsFlipped={this.updateIsFlipped}
-        
+
         // next three props for sorting by type
         isSortedByType={this.state.isSortedByType}
         sortByType={this.state.sortByType}
