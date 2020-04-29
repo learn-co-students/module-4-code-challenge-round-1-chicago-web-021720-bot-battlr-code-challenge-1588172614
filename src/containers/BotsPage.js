@@ -1,6 +1,6 @@
 import React from "react";
 import BotCollection from "./BotCollection";
-import YourBotArmy from "./YourBotArmy"
+import YourBotArmy from "./YourBotArmy";
 
 const API = 'https://bot-battler-api.herokuapp.com/api/v1/bots'
 class BotsPage extends React.Component {
@@ -10,6 +10,7 @@ class BotsPage extends React.Component {
     this.state = {
       botCollection: [],
       botArmy: [],
+      spec: false
     }
   }
 
@@ -44,12 +45,18 @@ class BotsPage extends React.Component {
       botArmy: updatedBotArmy
     })
   }
-  
+
+  handleSpec(bot) {
+    this.setState({
+      spec: bot
+    })
+  }
+
   render() {
     return (
       <div>
         <YourBotArmy botArmy={this.state.botArmy} dischargeCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)}/>
-        <BotCollection botCollection={this.state.botCollection} enlistCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)}/>
+        <BotCollection botCollection={this.state.botCollection} enlistCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)} specCallback={(bot) => this.handleSpec(bot)} spec={this.state.spec}/>
       </div>
     );
   }
