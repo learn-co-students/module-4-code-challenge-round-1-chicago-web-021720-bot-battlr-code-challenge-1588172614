@@ -16,7 +16,7 @@ class BotsPage extends React.Component {
     .then(r => r.json())
     .then(bots => {
       const updatedBots = bots.map(bot=> {
-        return {isArmy: false, ...bot}
+        return {isArmy: false, isFlipped: false, ...bot}
       })
       this.setState({ bots: updatedBots })
     })
@@ -39,14 +39,28 @@ class BotsPage extends React.Component {
     })
   }
 
+  updateIsFlipped = id => {
+    console.log(id)
+    const updatedBots = this.state.bots.map(bot => {
+      if (bot.id === id){
+        bot.isFlipped = !bot.isFlipped
+        return bot
+      }
+      return bot
+    })
+    this.setState({
+      bots: updatedBots
+    })
+  }
+
 
 
   render() {
     console.log(this.state.bots)
     return (
       <div>
-        <YourBotArmy bots={this.state.armyBots} updateIsArmy={this.updateIsArmy}/>
-        <BotCollection bots={this.state.bots} updateIsArmy={this.updateIsArmy} />
+        <YourBotArmy bots={this.state.armyBots} updateIsArmy={this.updateIsArmy} updateIsFlipped={this.updateIsFlipped}/>
+        <BotCollection bots={this.state.bots} updateIsArmy={this.updateIsArmy} updateIsFlipped={this.updateIsFlipped}/>
       </div>
     );
   }
