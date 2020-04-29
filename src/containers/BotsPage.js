@@ -1,13 +1,16 @@
 import React from "react";
 import BotCollection from './BotCollection'
 import YourBotArmy from './YourBotArmy'
+import BotSpecs from '../components/BotSpecs'
 
 class BotsPage extends React.Component {
   constructor() {
     super()
     this.state = {
       allBots: [],
-      botArmy: []
+      botArmy: [],
+      showCollection: true,
+      showBot: {}
     }
   }
 
@@ -36,10 +39,10 @@ class BotsPage extends React.Component {
         return bot
       }
     })
-
-    this.setState(prevState => ({
-      allBots: newAllBots
-    }))
+    this.setState({
+      allBots: newAllBots,
+      showCollection: true
+    })
   }
 
   onArmyCardClick = armyBot => {
@@ -50,18 +53,34 @@ class BotsPage extends React.Component {
         return bot
       }
     })
+    this.setState({
+      allBots: newAllBots,
+    })
+  }
 
-    this.setState(prevState => ({
-      allBots: newAllBots
-    }))
+  showBotSpecs = clickedBot => {
+    this.setState({
+      showCollection: false,
+      showBot: clickedBot
+    })
+  }
 
+  goBack = () => {
+    this.setState({
+      showCollection: true
+    })
   }
 
   render() {
     return (
       <div>
-        <YourBotArmy allBots={this.state.allBots} onArmyCardClick={this.onArmyCardClick}/>
-        <BotCollection allBots={this.state.allBots} onNotArmyCardClick={this.onNotArmyCardClick}/>
+        {this.state.showCollection ? 
+          <div>
+            <YourBotArmy allBots={this.state.allBots} onArmyCardClick={this.onArmyCardClick}/>
+            <BotCollection allBots={this.state.allBots} showBotSpecs={this.showBotSpecs} />
+          </div>
+          : <BotSpecs bot={this.state.showBot} goBack={this.goBack} onNotArmyCardClick={this.onNotArmyCardClick}/>
+        }
       </div>
     );
   }

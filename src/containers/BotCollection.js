@@ -5,7 +5,7 @@ class BotCollection extends React.Component {
   	renderCards = () => {
 		return this.props.allBots.map(bot => {
 			if (!bot.inArmy) {
-				return <BotCard bot={bot} onCardClick={this.props.onNotArmyCardClick}/>
+				return <BotCard bot={bot} onCardClick={this.props.showBotSpecs} showBotSpecs={this.props.showBotSpecs}/>
 			}
 		}) 
   	}
