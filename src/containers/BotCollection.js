@@ -6,12 +6,28 @@ import BotSpecs from "../components/BotSpecs";
 class BotCollection extends React.Component {
 
   renderBots = () => {
-	  return this.props.bots.map(bot => {
-		if (!bot.isFlipped){
-			return <BotCard key={bot.id} bot={bot} updateIsArmy={this.props.updateIsArmy} updateIsFlipped={this.props.updateIsFlipped}/>
-		} else {
-			return <BotSpecs key={'specs' + bot.id} bot={bot} updateIsArmy={this.props.updateIsArmy} updateIsFlipped={this.props.updateIsFlipped}/>
-		}
+	let bots = this.props.bots
+	if (this.props.isSortedByType){
+		bots = this.props.sortByType
+	}
+
+
+	return bots.map(bot => {
+	if (!bot.isFlipped){
+		return (
+			<BotCard key={bot.id} bot={bot} 
+			updateIsArmy={this.props.updateIsArmy} 
+			updateIsFlipped={this.props.updateIsFlipped}
+			/>
+		)
+	} else {
+		return (
+			<BotSpecs key={'specs' + bot.id} bot={bot} 
+			updateIsArmy={this.props.updateIsArmy} 
+			updateIsFlipped={this.props.updateIsFlipped}
+			/>
+		)
+	}
 
 	})
   }
@@ -19,6 +35,7 @@ class BotCollection extends React.Component {
   render(){
   	return (
   	  <div className="ui four column grid">
+			<button onClick={this.props.toggleSortBotsByType}>Sort Bots By Type</button>
     		<div className="row">
     		  Collection of all bots
 			  {this.renderBots()}
@@ -26,7 +43,6 @@ class BotCollection extends React.Component {
   	  </div>
   	);
   }
-
 };
 
 export default BotCollection;

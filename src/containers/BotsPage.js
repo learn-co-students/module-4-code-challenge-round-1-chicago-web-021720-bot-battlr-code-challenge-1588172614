@@ -7,7 +7,9 @@ class BotsPage extends React.Component {
     super()
     this.state = {
       bots: [],
-      armyBots: []
+      armyBots: [],
+      isSortedByType: false,
+      sortByType: []
     }
   }
 
@@ -18,7 +20,14 @@ class BotsPage extends React.Component {
       const updatedBots = bots.map(bot=> {
         return {isArmy: false, isFlipped: false, ...bot}
       })
-      this.setState({ bots: updatedBots })
+      const sortByType = bots.sort((a, b) => {
+        return (a.bot_class > b.bot_class) ? 1 : -1
+        })
+
+      this.setState({ 
+        bots: updatedBots,
+        sortByType: sortByType
+      })
     })
   }
 
@@ -40,7 +49,6 @@ class BotsPage extends React.Component {
   }
 
   updateIsFlipped = id => {
-    console.log(id)
     const updatedBots = this.state.bots.map(bot => {
       if (bot.id === id){
         bot.isFlipped = !bot.isFlipped
@@ -53,14 +61,28 @@ class BotsPage extends React.Component {
     })
   }
 
-
+  toggleSortBotsByType = () => {
+    this.setState(prevState => ({
+      isSortedByType: !prevState.isSortedByType
+    }))
+  }
 
   render() {
-    console.log(this.state.bots)
     return (
       <div>
-        <YourBotArmy bots={this.state.armyBots} updateIsArmy={this.updateIsArmy} updateIsFlipped={this.updateIsFlipped}/>
-        <BotCollection bots={this.state.bots} updateIsArmy={this.updateIsArmy} updateIsFlipped={this.updateIsFlipped}/>
+        <YourBotArmy bots={this.state.armyBots} 
+        updateIsArmy={this.updateIsArmy} 
+        updateIsFlipped={this.updateIsFlipped}
+        />
+        <BotCollection bots={this.state.bots} 
+        updateIsArmy={this.updateIsArmy} 
+        updateIsFlipped={this.updateIsFlipped}
+        
+        // next three props for sorting by type
+        isSortedByType={this.state.isSortedByType}
+        sortByType={this.state.sortByType}
+        toggleSortBotsByType={this.toggleSortBotsByType}
+        />
       </div>
     );
   }
