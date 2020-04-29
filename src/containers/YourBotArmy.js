@@ -5,7 +5,7 @@ class YourBotArmy extends React.Component {
   //your bot army code here...
   renderBotArmy = (army, dischargeCallback) => {
     return army.map(bot => {
-      return <BotCard bot={bot} callback={dischargeCallback} />
+      return <BotCard bot={bot} callback={dischargeCallback} enlisted={true} />
     })
   }
 

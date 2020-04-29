@@ -5,7 +5,7 @@ class BotCollection extends React.Component {
   //your code here
   renderBotCollection = (bots, enlistCallback) => {
 	  return bots.map(bot => {
-		  return <BotCard bot={bot} key={bot.id} callback={enlistCallback} />
+		  return <BotCard bot={bot} key={bot.id} callback={enlistCallback} enlisted={false}/>
 	  })
   }
 

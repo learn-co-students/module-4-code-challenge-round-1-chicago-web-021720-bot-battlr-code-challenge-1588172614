@@ -1,7 +1,7 @@
 import React from "react";
 
 const BotCard = props => {
-  const { bot, callback } = props;
+  const { bot, callback, enlisted } = props;
 
   let botType;
 
@@ -24,7 +24,7 @@ const BotCard = props => {
       <div
         className="ui card"
         key={bot.id}
-        onClick={() => callback(bot.id)}
+        onClick={() => callback(!enlisted, bot.id)}
       >
         <div className="image">
           <img alt="oh no!" src={bot.avatar_url} />

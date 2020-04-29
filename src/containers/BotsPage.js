@@ -27,12 +27,12 @@ class BotsPage extends React.Component {
       })
   }
 
-  handleEnlistBot(id) {
+  handleEnlistBot(isEnlisted, id) {
     const updatedBotCollection = this.state.botCollection.map(bot => {
       if (bot.id === id) {
         return {
           ...bot,
-          isEnlisted: true
+          isEnlisted: isEnlisted
         }
       } else {
         return bot
@@ -44,30 +44,12 @@ class BotsPage extends React.Component {
       botArmy: updatedBotArmy
     })
   }
-
-  handleDischargeBot(id) {
-    const updatedBotCollection = this.state.botCollection.map(bot => {
-      if (bot.id === id) {
-        return {
-          ...bot,
-          isEnlisted: false
-        }
-      } else {
-        return bot
-      }
-    })
-    const updatedBotArmy = updatedBotCollection.filter(bot => bot.isEnlisted === true)
-    this.setState({
-      botCollection: updatedBotCollection,
-      botArmy: updatedBotArmy
-    })
-  }
-
+  
   render() {
     return (
       <div>
-        <YourBotArmy botArmy={this.state.botArmy} dischargeCallback={(id) => this.handleDischargeBot(id)}/>
-        <BotCollection botCollection={this.state.botCollection} enlistCallback={(id) => this.handleEnlistBot(id)}/>
+        <YourBotArmy botArmy={this.state.botArmy} dischargeCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)}/>
+        <BotCollection botCollection={this.state.botCollection} enlistCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)}/>
       </div>
     );
   }
