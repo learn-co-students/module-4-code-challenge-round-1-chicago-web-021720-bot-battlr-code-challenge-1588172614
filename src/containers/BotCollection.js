@@ -6,11 +6,12 @@ class BotCollection extends React.Component {
 	
 	constructor() {
 		super()
+		this.renderBot = this.renderBot.bind(this)
 		this.renderBots = this.renderBots.bind(this)
 	}	
 
 	renderBot(bot) {
-		return <BotCard bot={bot}/>
+		return <BotCard bot={bot} handleClick={this.props.handleIndexBotClick}/>
 	}
 
 	renderBots() {

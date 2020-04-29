@@ -1,17 +1,21 @@
 import React from "react";
 import BotCollection from "./BotCollection"
+import YourBotArmy from "./YourBotArmy";
 
 
 class BotsPage extends React.Component {
-  //start here with your code for step one
+
   constructor() {
     super()
     
     this.state = {
-      bots: []
+      allBots: [],
+      armyBots: []
     }
 
     this.fetchBots = this.fetchBots.bind(this)
+    this.handleIndexBotClick = this.handleIndexBotClick.bind(this)
+    this.handleArmyBotClick = this.handleArmyBotClick.bind(this)
   }
 
   fetchBots() {
@@ -19,7 +23,7 @@ class BotsPage extends React.Component {
       .then(resp => resp.json())
       .then(bots => {
         this.setState({
-          bots: bots
+          allBots: bots
         })
       })
       .catch(err => console.log(err))
@@ -29,11 +33,20 @@ class BotsPage extends React.Component {
     this.fetchBots()
   }
 
+  handleIndexBotClick(bot) {
+    console.log('index bot click', bot)
+  }
+
+  handleArmyBotClick(bot) {
+    console.log('army bot click', bot)
+  }
+
   render() {
-    console.log(this.state)
+    const { allBots, armyBots } = this.state
     return (
       <div>
-        <BotCollection bots={this.state.bots}/>
+        <YourBotArmy bots={armyBots} handleArmyBotClick={this.handleArmyBotClick}/>
+        <BotCollection bots={allBots} handleIndexBotClick={this.handleIndexBotClick}/>
       </div>
     );
   }
