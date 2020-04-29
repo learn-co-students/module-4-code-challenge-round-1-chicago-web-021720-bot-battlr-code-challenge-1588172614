@@ -56,7 +56,7 @@ class BotsPage extends React.Component {
     return (
       <div>
         <YourBotArmy botArmy={this.state.botArmy} dischargeCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)}/>
-        <BotCollection botCollection={this.state.botCollection} enlistCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)} specCallback={(bot) => this.handleSpec(bot)} spec={this.state.spec}/>
+        <BotCollection botCollection={this.state.botCollection} specCallback={(bot) => this.handleSpec(bot)} spec={this.state.spec} enlistCallback={(isEnlisted, id) => this.handleEnlistBot(isEnlisted, id)}/>
       </div>
     );
   }

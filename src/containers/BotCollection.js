@@ -10,8 +10,8 @@ class BotCollection extends React.Component {
 	  })
   }
 
-  renderBotSpecs = (bot) => {
-	  return <BotSpecs bot={bot} />
+  renderBotSpecs = (bot, specCallback, enlistCallback) => {
+	  return <BotSpecs bot={bot} enlistCallback={enlistCallback} specCallback={specCallback} />
   }
 
   render(){
@@ -21,7 +21,7 @@ class BotCollection extends React.Component {
     		<div className="row">
 			  {
 				  spec ?
-				  this.renderBotSpecs(spec)
+				  this.renderBotSpecs(spec, specCallback, enlistCallback)
 				  :
 				  this.renderBotCollection(botCollection, enlistCallback, specCallback)
 				}
