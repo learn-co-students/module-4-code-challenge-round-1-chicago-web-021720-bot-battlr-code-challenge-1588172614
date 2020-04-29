@@ -74,12 +74,13 @@ class BotsPage extends React.Component {
   render() {
     return (
       <div>
-        {this.state.showCollection ? 
-          <div>
-            <YourBotArmy allBots={this.state.allBots} onArmyCardClick={this.onArmyCardClick}/>
-            <BotCollection allBots={this.state.allBots} showBotSpecs={this.showBotSpecs} />
-          </div>
-          : <BotSpecs bot={this.state.showBot} goBack={this.goBack} onNotArmyCardClick={this.onNotArmyCardClick}/>
+        <YourBotArmy allBots={this.state.allBots} onArmyCardClick={this.onArmyCardClick}/>
+        {
+          this.state.showCollection 
+          ? 
+          <BotCollection allBots={this.state.allBots} showBotSpecs={this.showBotSpecs} />
+          : 
+          <BotSpecs bot={this.state.showBot} goBack={this.goBack} onNotArmyCardClick={this.onNotArmyCardClick}/>
         }
       </div>
     );
