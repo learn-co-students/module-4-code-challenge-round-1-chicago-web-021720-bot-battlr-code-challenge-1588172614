@@ -1,6 +1,6 @@
 import React from "react";
 
-class BotsPage extends React.Component {
+export default class BotsPage extends React.Component {
   //start here with your code for step one
 
   render() {
@@ -12,5 +12,3 @@ class BotsPage extends React.Component {
   }
 
 }
-
-export default BotsPage;

@@ -1,7 +1,7 @@
 import React from "react";
 import BotCard from "../components/BotCard";
 
-class BotCollection extends React.Component {
+export default class BotCollection extends React.Component {
   //your code here
 
   render(){
@@ -16,5 +16,3 @@ class BotCollection extends React.Component {
   }
 
 };
-
-export default BotCollection;
