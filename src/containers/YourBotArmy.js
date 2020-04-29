@@ -2,8 +2,14 @@ import React from "react";
 import BotCard from "../components/BotCard";
 
 class YourBotArmy extends React.Component {
+  enlistedBots = () => {
+    return this.props.bots.filter(bot => bot.enlisted === true)
+  }
+
   renderBots = () => {
-    return this.props.bots.map(bot => <BotCard bot={bot} handleClick={this.props.handleUnenlist}/>)
+    return this.enlistedBots().map(bot => {
+      return <BotCard key={bot.id} bot={bot} handleClickBot={this.props.handleClickBot}/>
+    })
   }
 
   render(){

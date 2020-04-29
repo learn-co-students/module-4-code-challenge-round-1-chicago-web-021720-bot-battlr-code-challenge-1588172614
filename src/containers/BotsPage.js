@@ -1,13 +1,17 @@
 import React from "react";
 import BotCollection from './BotCollection'
 import YourBotArmy from './YourBotArmy'
+import BotSpecs from '../components/BotSpecs'
 
 class BotsPage extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      bots: []
+      bots: [],
+      selectedBot: undefined,
+      filter: 'All',
+      sort: 'health'
     }
   }
   
@@ -23,12 +27,24 @@ class BotsPage extends React.Component {
       })
   }
 
-  handleEnlist = id => {
+  handleClickBot = bot => {
+    this.setState({
+      selectedBot: bot
+    })
+  }
+
+  handleGoBack = () => {
+    this.setState({
+      selectedBot: undefined
+    })
+  }
+
+  toggleEnlisted = id => {
     const updatedBots = this.state.bots.map(bot => {
       if(bot.id === id) {
         return {
           ...bot,
-          enlisted: true
+          enlisted: !bot.enlisted
         }
       } else {
         return bot
@@ -36,46 +52,66 @@ class BotsPage extends React.Component {
     })
 
     this.setState({
-      bots: updatedBots
+      bots: updatedBots,
+      selectedBot: undefined
     })
   }
 
-  handleUnenlist = id => {
-    const updatedBots = this.state.bots.map(bot => {
-      if(bot.id === id) {
-        return {
-          ...bot,
-          enlisted: false
-        }
-      } else {
-        return bot
-      }
-    })
 
+
+  handleChangeClass = e => {
     this.setState({
-      bots: updatedBots
+      filter: e.target.value
     })
   }
 
-  enlistedBots = () => {
-    return this.state.bots.filter(bot => bot.enlisted === true)
+  filterBotsByClass = () => {
+    if(this.state.filter === "All") {
+      return this.state.bots
+    } else {
+      return this.state.bots.filter(bot => bot.bot_class === this.state.filter)
+    }
   }
 
-  // unenlistedBots = () => {
-  //   return this.state.bots.filter(bot => bot.enlisted === false)
-  // }
+  handleChangeSort = e => {
+    this.setState({
+      sort: e.target.value
+    })
+  }
+
+  sortBots = bots => {
+    return bots.sort((a, b) => {
+      return b[this.state.sort] - a[this.state.sort]
+    })
+  }
+
+  selectBotsToShow = () => {
+    const filteredBots = this.filterBotsByClass()
+    return this.sortBots(filteredBots)
+  }
 
   render() {
+    const botsCollection = this.selectBotsToShow()
     return (
       <div>
         <YourBotArmy
-          bots={this.enlistedBots()}
-          handleUnenlist={this.handleUnenlist}
-        />
-        <BotCollection
           bots={this.state.bots}
-          handleEnlist={this.handleEnlist}
+          handleClickBot={this.handleClickBot}
         />
+        {this.state.selectedBot ? 
+          <BotSpecs
+            bot={this.state.selectedBot}
+            toggleEnlisted={this.toggleEnlisted}
+            handleGoBack={this.handleGoBack}
+          />
+          :
+          <BotCollection
+            bots={botsCollection}
+            handleClickBot={this.handleClickBot}
+            handleChangeClass={this.handleChangeClass}
+            handleChangeSort={this.handleChangeSort}
+          />
+        }
       </div>
     );
   }
